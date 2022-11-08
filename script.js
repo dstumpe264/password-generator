@@ -137,10 +137,55 @@ var specialCharacters = [
         lowerCase: lowerCase,
     };
     
+    // return criteria
+    return criteria;
         
     }
+
+    // random generator for selecting characters
+    function getRandom(arr){
+        var randomIndex = Math.floor(Math.random() * arr.length);
+        var randomElement = arr[randomIndex];
+
+        return randomElement;
+    }
+
+
     // generate password matching all criteria
     function generatePassword(){
+        // get criterias
+        var criterias = getCriteria();
+
+        // final result
+        var result = [];
+
+        // array of chars based on criterias
+        var availableChars = [];
+
+        // chars used to make sure at least one character of each selected type is used
+        var includedChars = [];
+
+        // get an array of all available chars to use for password and generate one of each to be used
+        if(criterias.specialChar){
+            availableChars = availableChars.concat(specialCharacters);
+            includedChars = includedChars.push(getRandom(specialCharacters));
+        }
+        if(criterias.numbers){
+            availableChars = availableChars.concat(numericCharacters);
+            includedChars = includedChars.push(getRandom(numericCharacters));
+        }
+        if(criterias.lowerCase){
+            availableChars = availableChars.concat(lowerCasedCharacters);
+            includedChars = includedChars.push(getRandom(lowerCasedCharacters));
+        }
+        if(criterias.upperCase){
+            availableChars = availableChars.concat(upperCasedCharacters);
+            includedChars = includedChars.pop(getRandom(upperCasedCharacters));
+        }
+
+        // loop to create password 
+        // length provided by user
+        // random characters selected from array
 
     }
     
