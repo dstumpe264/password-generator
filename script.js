@@ -165,43 +165,58 @@ var specialCharacters = [
         // chars used to make sure at least one character of each selected type is used
         var includedChars = [];
 
+        // exit if no options
+        if(!criterias) return null;
+
         // get an array of all available chars to use for password and generate one of each to be used
         if(criterias.specialChar){
             availableChars = availableChars.concat(specialCharacters);
-            includedChars = includedChars.push(getRandom(specialCharacters));
+            includedChars.push(getRandom(specialCharacters));
         }
         if(criterias.numbers){
             availableChars = availableChars.concat(numericCharacters);
-            includedChars = includedChars.push(getRandom(numericCharacters));
+            includedChars.push(getRandom(numericCharacters));
         }
         if(criterias.lowerCase){
             availableChars = availableChars.concat(lowerCasedCharacters);
-            includedChars = includedChars.push(getRandom(lowerCasedCharacters));
+            includedChars.push(getRandom(lowerCasedCharacters));
         }
         if(criterias.upperCase){
             availableChars = availableChars.concat(upperCasedCharacters);
-            includedChars = includedChars.pop(getRandom(upperCasedCharacters));
+            includedChars.pop(getRandom(upperCasedCharacters));
         }
 
         // loop to create password 
         // length provided by user
         // random characters selected from array
+        for (let index = 0; index < criterias.length; index++) {
+            result.push(getRandom(availableChars));
+            
+        }
+
+        // add char from each criteria
+        for(let index = 0; index < includedChars.length; index++){
+            result[index] = includedChars[index];
+        }
+
+        // return result as a string
+        return result.join('');
 
     }
     
-    // display password
-
+    
     // Assignment Code
     var generateBtn = document.querySelector("#generate");
     
     // Write password to the #password input
+    // display password
     function writePassword() {
         var password = generatePassword();
-  var passwordText = document.querySelector("#password");
+        var passwordText = document.querySelector("#password");
 
-  passwordText.value = password;
+        passwordText.value = password;
 
-}
+    }
 
-// Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
+    // Add event listener to generate button
+    generateBtn.addEventListener("click", writePassword);
